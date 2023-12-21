@@ -1,9 +1,15 @@
-# Experiment--05-Implementation-of-flipflops-using-verilog
-### AIM: To implement all the flipflops using verilog and validating their functionality using their functional tables
-### HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
-### SOFTWARE REQUIRED:   Quartus prime
-### THEORY 
-SR Flip-Flop
+## Name:Nidhish B
+## Register Number:23014111
+## Experiment:05-Implementation-of-flipflops-using-verilog
+
+## AIM: To implement all the flipflops using verilog and validating their functionality using their functional tables
+
+## HARDWARE REQUIRED:  – PC, Cyclone II , USB flasher
+
+## SOFTWARE REQUIRED:   Quartus prime
+
+## THEORY:
+## SR Flip-Flop
 SR flip-flop operates with only positive clock transitions or negative clock transitions. Whereas, SR latch operates with enable signal. The circuit diagram of SR flip-flop is shown in the following figure.
 
 ![image](https://user-images.githubusercontent.com/36288975/167910294-bb550548-b1dc-4cba-9044-31d9037d476b.png)
@@ -101,40 +107,128 @@ From the above characteristic table, we can directly write the next state equati
 Q(t+1)=T′Q(t)+TQ(t)′
 ⇒Q(t+1)=T⊕Q(t)
 
-### Procedure
-/* write all the steps invloved */
+### Procedure:
+1)Create a New Project:
+Open Quartus and create a new project by selecting "File" > "New Project Wizard."
+Follow the wizard's instructions to set up your project, including specifying the project name, location, and target device (FPGA).
+
+2)Create a New Design File:
+Once the project is created, right-click on the project name in the Project Navigator and select "Add New File."
+Choose "Verilog HDL File" or "VHDL File," depending on your chosen hardware description language.
+
+3)Write the Combinational Logic Code:
+Open the newly created Verilog or VHDL file and write the code for your combinational logic.
+
+4)Compile the Project:
+To compile the project, click on "Processing" > "Start Compilation" in the menu.
+Quartus will analyze your code, synthesize it into a netlist, and perform optimizations based on your target FPGA device.
+
+5)Analyze and Fix Errors:
+If there are any errors or warnings during the compilation process, Quartus will display them in the Messages window.
+Review and fix any issues in your code if necessary.
+View the RTL diagram.
+
+6)Verification:
+Click on "File" > "New" > "Verification/Debugging Files" > "University Program VWF".
+Once Waveform is created Right Click on the Input/Output Panel > " Insert Node or Bus" > Click on Node Finder > Click On "List" > Select All.
+Give the Input Combinations according to the Truth Table and then simulate the Output Waveform.
+
+## PROGRAM:
+## SR Flipflop
+~~~
+module sr_flipflop(S,R,clk,Q,Qbar);
+input S,R,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=S|((~R)&Q);
+Qbar=R|((~S)&(Qbar));
+end
+endmodule
+~~~
+
+### RTL LOGIC FOR SR FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/ec9bd12d-39bc-45ac-b05f-37507d4d8f8d)
+
+### TIMING DIGRAMS FOR SR FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/b1d7d42a-18c3-4964-a749-8b8fc454c4ac)
+
+## D Flipflop
+~~~
+module d_fliflop(D,clk,Q,Qbar);
+input D,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin 
+Q=D;
+Qbar=~D;
+end
+endmodule
+~~~
+
+### RTL LOGIC FOR D FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/e797ae84-4848-473c-bb77-2f291255a1ce)
+
+### TIMING DIGRAMS FOR D FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/83b35c65-a77c-4ab2-8bbd-38436efada97)
 
 
+## JK Flipflop
+~~~
+module jk_fliflop(J,K,clk,Q,Qbar);
+input J,K,clk;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge clk)
+begin
+Q=(J&(~Q))|((~K)&Q);
+Qbar=((~J)&(Qbar))|K&(~Qbar);
+end
+endmodule
+~~~
 
-### PROGRAM 
-/*
-Program for flipflops  and verify its truth table in quartus using Verilog programming.
-Developed by: 
-RegisterNumber:  
-*/
+### RTL LOGIC FOR JK FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/cc607acc-872c-4f1a-875c-20c6aa733028)
+
+### TIMING DIGRAMS FOR JK FLIP FLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/b99b0004-5134-411f-9b37-b1ce354eafb7)
+
+## T Flipflop
+~~~
+module t_fliflop(clk,T,q,qbar);
+input clk,T;
+output q,qbar;
+reg q,qbar;
+always @(posedge clk)
+begin
+q<=(T&~q)|(~T&q);
+qbar<=~q;
+end 
+endmodule
+~~~
+
+### RTL LOGIC FOR T FLIPFLOP:
+
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/83cf6b36-1e64-4b9d-ab87-d730e5cfdc02)
 
 
+### TIMING DIGRAMS FOR T FLIP FLOP:
 
+![image](https://github.com/Nidhish055/Experiment--05-Implementation-of-flipflops-using-verilog/assets/145979818/e84fb1ab-c47f-4aa2-a1e9-f3b3a81ebf90)
 
-
-
-### RTL LOGIC FOR FLIPFLOPS 
-
-
-
-
-
-
-
-
-
-### TIMING DIGRAMS FOR FLIP FLOPS 
-
-
-
-
-
-
-
-
-### RESULTS 
+### RESULTS:
+Thus, the program for flipflops is implemented and its functional table is successfully verified in quartus using Verilog programming.
